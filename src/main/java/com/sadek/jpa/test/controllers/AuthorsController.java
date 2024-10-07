@@ -22,7 +22,7 @@ public class AuthorsController {
     @GetMapping
     public ResponseEntity<?> GetAll()
     {
-        var data = authorService.FindAll();
+        var data = authorService.TestJPA();
         return data.isError() ? ResponseEntity.status(data.getStatusCode()).body(data) : ResponseEntity.ok(data);
     }
 }

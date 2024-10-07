@@ -80,4 +80,25 @@ public class AuthorServiceTest {
         //Assert
         assertEquals(200, authorResponse.getStatusCode());
     }
+
+    @Test
+    void findById_MappingToDto_ShouldBeCorrect(){
+        //Arrange
+        Optional<Author> mockedAuthor = Optional.of(new Author("sadek", "Egypt", 20, null));
+        Mockito.when(authorRepository.findById(Mockito.anyLong()))
+                .thenReturn(mockedAuthor);
+
+        //Act
+        var authorResponse = authorService.FindById((long)100);
+
+        //Assert
+        var authorDto = authorResponse.getData();
+
+        assertAll("authorDto",
+                () -> assertEquals(mockedAuthor.get().getName(), authorDto.getAuthor_name(), "Name should match"),
+                () -> assertEquals(mockedAuthor.get().getAge(), authorDto.getAge(), "Age should match"),
+                () -> assertEquals(mockedAuthor.get().getNationality(), authorDto.getNationality(), "Nationality should match")
+        );
+
+    }
 }

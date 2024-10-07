@@ -7,4 +7,6 @@ import java.util.List;
 public interface AuthorService {
     Response<AuthorDto> FindById(Long id);
     Response<List<AuthorDto>> FindAll();
+
+    Response<?> TestJPA();
 }
